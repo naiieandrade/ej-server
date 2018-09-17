@@ -42,6 +42,7 @@ def conversation_detail_context(request, conversation):
     user = request.user
     is_favorite = user.is_authenticated and conversation.followers.filter(user=user).exists()
     n_comments = rules.compute('ej.remaining_comments', conversation, user)
+    n_comments_under_moderation = user.comments.filter(status=Comment.STATUS.pending).count()
     comment = None
 
     # User is voting in the current comment. We still need to choose a random
@@ -76,6 +77,7 @@ def conversation_detail_context(request, conversation):
         'conversation': conversation,
         'comment': comment or conversation.next_comment(user, None),
         'comments_left': n_comments,
+        'comments_under_moderation': n_comments_under_moderation,
         'login_link': login_link(_('login'), conversation),
 
         # Permissions and predicates
