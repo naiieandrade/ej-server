@@ -1,4 +1,5 @@
-
+ 
+ Instalar node
 
 ` $ npm install -g sass `
 
@@ -11,3 +12,4 @@
 ` $ pip --version `
 
 ` $ pip3 install --upgrade pip`
+
